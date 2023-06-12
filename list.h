@@ -67,6 +67,6 @@ void printAll(const List *plist);
 
 // змінбє дані елементу списку
 void editOrder(const List *plist);
-void printOrder(const Node *pnode);
+void printOrder(Node *pnode);
 
 #endif

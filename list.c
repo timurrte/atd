@@ -6,7 +6,7 @@
 
 // пошук замовлення по id в списку
 Node* findOrder(int id, const List* plist) {
-    Node* current = plist;
+    Node* current = *plist;
     while (current != NULL) {
         if (current->item.order_id == id) {
             return current;
@@ -104,7 +104,7 @@ void EmptyTheList(List *plist) {
 
 // виводить в стандартний поток виводу інформацію про замовлення
 // приймає посилання на елемент типу Item
-void printOrder(const Node *pnode) {
+void printOrder(Node *pnode) {
     Item* pitem = &pnode->item;
     printf("Всі замовлення\nНомер замовлення: %d\nІмʼя замовника: %sДата замовлення: %s\nДані про замовлення: %sСтатус замовлення: %s\nСума замовлення: %d\nКількість товару: %d\n",
     pitem->order_id, pitem->customer_name, pitem->order_date,pitem->order_info, pitem->status, pitem->order_cost, pitem->total_amount );
@@ -114,7 +114,7 @@ void printOrder(const Node *pnode) {
 void printAll(const List *plist) {
     Node *pnode = *plist;
     while(pnode != NULL) {
-        printOrder(&pnode->item);
+        printOrder(pnode);
         pnode = pnode->next;
     }
 }
