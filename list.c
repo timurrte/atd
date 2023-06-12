@@ -142,5 +142,51 @@ void editOrder(const List *plist) {
 }
 
 int write_to_file(const List *plist) {
-    return 0;
+    // Відкриття файлу для запису
+    char* filename = "orders.dat";
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Не вдалося відкрити файл.\n");
+        return;
+    }
+
+    // Прохід по зв'язаному списку та запис даних у файл
+    Node* current = plist;
+    while (current != NULL) {
+        fprintf(file, "%d\n", current->item);
+        current = current->next;
+    }
+
+    // Закриття файлу
+    fclose(file);
+}
+
+// Функція для читання даних зв'язаного списку з файлу
+void readLinkedListFromFile(const List* plist) {
+    char* filename = "orders.dat";
+    // Відкриття файлу для читання
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Не вдалося відкрити файл.\n");
+        return;
+    }
+
+    // Очищення існуючого зв'язаного списку
+    Node* pnode = plist;
+    Node* nextNode;
+    while (pnode != NULL) {
+        nextNode = pnode->next;
+        free(pnode);
+        pnode = nextNode;
+    }
+    plist = NULL;
+
+    // Читання даних з файлу та створення вузлів з відповідними значеннями
+    int value;
+    while (fscanf(file, "%d", &value) != EOF) {
+        AddItem(value, plist);
+    }
+
+    // Закриття файлу
+    fclose(file);
 }
