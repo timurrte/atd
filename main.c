@@ -26,7 +26,7 @@ int main(void) {
 
 // функція для вибору користувачем операцій над списком
 void menu(const List *plist) {
-    printf("Оберіть дію:\n1)Додати замовлення\n2)Редагувати замовлення\nЗ)Знайти замовлення\n4)Всі замовлення\n");
+    printf("Оберіть дію:\n1)Додати замовлення\n2)Редагувати замовлення\nЗ)Знайти замовлення\n4)Всі замовлення\n5)Зберегти список на диску\n6)Зчитати список з диску\n");
     int number;
     fflush(stdin);
     scanf("%d", &number);
@@ -47,6 +47,12 @@ void menu(const List *plist) {
     
     case 4:
         printAll(plist);
+        break;
+    case 5:
+        write_to_file(plist);
+        break;
+    case 6:
+        readListFromFile(plist);
         break;
     default:
         exit(1);

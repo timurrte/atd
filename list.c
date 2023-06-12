@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
-
+#include <time.h>
 
 
 // пошук замовлення по id в списку
@@ -106,8 +106,13 @@ void EmptyTheList(List *plist) {
 // приймає посилання на елемент типу Item
 void printOrder(Node *pnode) {
     Item* pitem = &pnode->item;
-    printf("Всі замовлення\nНомер замовлення: %d\nІмʼя замовника: %sДата замовлення: %s\nДані про замовлення: %sСтатус замовлення: %s\nСума замовлення: %d\nКількість товару: %d\n",
-    pitem->order_id, pitem->customer_name, pitem->order_date,pitem->order_info, pitem->status, pitem->order_cost, pitem->total_amount );
+    printf("\nНомер замовлення: %d\nІмʼя замовника: %sДані про замовлення: %sСтатус замовлення: %s\nСума замовлення: %d\nКількість товару: %d\n\n",
+    pitem->order_id, pitem->customer_name,pitem->order_info, pitem->status, pitem->order_cost, pitem->total_amount );
+    printf("Дата замовлення: ");
+    time_t t = pitem->order_date;
+    struct tm tm = *localtime(&t);
+
+    printf("%d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 }
 
 // виводить в стандартний поток виводу інформацію про всі замовлення в списку
@@ -115,7 +120,7 @@ void printAll(const List *plist) {
     Node *pnode = *plist;
     while(pnode != NULL) {
         printOrder(pnode);
-        pnode = pnode->next;
+        pnode = pnode->next; 
     }
 }
 
@@ -134,6 +139,8 @@ void addOrder(const List *plist) {
     scanf("%d", &tmp.total_amount);
     tmp.order_id = ListItemCount(plist) + 1;
     printf("\nрандом%dрандом\n", tmp.order_id);
+    tmp.order_date = time(NULL);
+    stpcpy(tmp.status, "Pending");
     printOrder(&tmp);
     AddItem(tmp, plist);
 }

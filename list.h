@@ -1,10 +1,11 @@
 #ifndef LIST_H_INCLUDED
 #define LIST_H_INCLUDED
 #include <string.h>
+#include <time.h>
 struct order {
     unsigned int order_id;
     char customer_name[50];
-    char order_date[20];
+    time_t order_date;
     char status[20];
     char order_info[50];
     int order_cost;
@@ -68,5 +69,9 @@ void printAll(const List *plist);
 // змінбє дані елементу списку
 void editOrder(const List *plist);
 void printOrder(Node *pnode);
+
+void write_to_file(const List *plist);
+void readListFromFile(List* listRef);
+
 
 #endif
