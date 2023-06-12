@@ -6,7 +6,7 @@ struct order {
     unsigned int order_id;
     char customer_name[50];
     time_t order_date;
-    char status[20];
+    char status[30];
     char order_info[50];
     int order_cost;
     int total_amount;
@@ -66,8 +66,8 @@ Node * findOrder(int id, const List* plist);
 // приймає посилання на початок списку
 void printAll(const List *plist);
 
-// змінбє дані елементу списку
-void editOrder(const List *plist);
+// змінює дані елементу списку
+void editStatus(List *plist);
 void printOrder(Node *pnode);
 
 void write_to_file(const List *plist);

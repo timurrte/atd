@@ -140,14 +140,55 @@ void addOrder(const List *plist) {
     tmp.order_id = ListItemCount(plist) + 1;
     printf("\nрандом%dрандом\n", tmp.order_id);
     tmp.order_date = time(NULL);
-    stpcpy(tmp.status, "Pending");
+    strncpy(tmp.status, "В очікуванні", 30);
     printOrder(&tmp);
     AddItem(tmp, plist);
 }
 
-void editOrder(const List *plist) {
-//todo
+void editStatus(List *plist) {
+    printf("\nВведіть номер замовлення, статус якого потрібно змінити:\n");
+    int orderId;
+    scanf("%d", &orderId);
+
+    Node *search = findOrder(orderId, plist);
+    if (search == NULL) {
+        printf("Замовлення з номером %d не знайдено!\n", orderId);
+        return;
+    }
+
+    Item *order = &(search->item);
+
+    printf("Оберіть новий статус замовлення:\n");
+    printf("1) В очікуванні\n");
+    printf("2) Обробляємо\n");
+    printf("3) Доставка\n");
+    printf("4) Доставлено\n");
+
+    int statusChoice;
+    scanf("%d", &statusChoice);
+
+    switch (statusChoice) {
+        case 1:
+           strncpy(order->status, "В очікуванні", 30);
+            break;
+        case 2:
+            strncpy(order->status, "Обробляємо", 30);
+            break;
+        case 3:
+            strncpy(order->status, "Доставка", 30);
+            break;
+        case 4:
+            strncpy(order->status, "Доставлено", 30);
+            break;
+        default:
+            printf("Некоректний вибір статусу!\n");
+            return;
+    }
+
+    printf("Статус замовлення з номером %d успішно змінено на \"%s\".\n", orderId, order->status);
 }
+
+
 
 void write_to_file(const List *plist) {
     char* filename = "orders.dat";

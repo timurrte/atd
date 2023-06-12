@@ -35,7 +35,7 @@ void menu(const List *plist) {
         addOrder(plist);
         break;
     case 2:
-        //editOrder(plist);
+        editStatus(plist);
         break;
     case 3:
         puts("\nВкажіть номер замовлення, яке потрібно знайти:");
