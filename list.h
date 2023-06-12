@@ -64,4 +64,10 @@ Node * findOrder(int id,const List *plist);
 // виводить в стандартний поток виводу інформацію про всі замовлення в списку
 // приймає посилання на початок списку
 void printAll(const List *plist);
+
+// змінбє дані елементу списку
+void editOrder(const List *plist);
+
+int write_to_file(const List *plist);
+
 #endif

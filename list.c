@@ -20,7 +20,7 @@ Node * findOrder(int id,const List *plist) {
 // відображення елементів списку
 // повертає 1 при успіху, інакше 0
 int showOrders(List *plist) {
-return 0;
+    printAll(plist);
 }
 
 // ініціалізація списку порожнім значенням
@@ -63,7 +63,7 @@ unsigned int ListItemCount(const List *plist) {
 
 // додає елемент до списку
 // повертає 1 при успіху, інакше 0
-int AddItem(Item item, List *plist) {
+int AddItem(Item item,List *plist) {
     Node *pnew;
     Node *scan = *plist;
     pnew = (Node*) malloc(sizeof(Node));
@@ -135,4 +135,12 @@ void addOrder(const List *plist) {
     printf("\nрандом%dрандом\n", tmp.order_id);
     printOrder(&tmp);
     AddItem(tmp, plist);
+}
+
+void editOrder(const List *plist) {
+//todo
+}
+
+int write_to_file(const List *plist) {
+    return 0;
 }

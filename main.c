@@ -22,6 +22,7 @@ int main(void) {
     }
 }
 
+// функція для вибору користувачем операцій над списком
 void menu(const List *plist) {
     printf("Оберіть дію:\n1)Додати замовлення\n2)Редагувати замовлення\nЗ)Знайти замовлення\n4)Всі замовлення\n");
     int number;
@@ -30,7 +31,6 @@ void menu(const List *plist) {
     switch (number){
     case 1:
         addOrder(plist);
-
         break;
     case 2:
         //editOrder(plist);
@@ -52,16 +52,9 @@ void menu(const List *plist) {
 }
 
 
-
-void editOrder(const List *plist) {
-//todo
-}
-
-
-
 void wait_m() {
-    printf("Press any button to proceed....");
-    while(getchar() == "\n");
+    printf("\nPress any button to proceed....\n");
+    while(getchar() == '\n');
     scanf("%c");
     system("clear");
 }
