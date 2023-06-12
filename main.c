@@ -11,11 +11,13 @@ int main(void) {
     // ініціалізуємо список порожнім значенням
     InitializeList(&orders);
     
+    // перевіряємо чи було виділено памʼять
     if (ListIsFull(&orders)) {
         fprintf(stderr, "Немає вільної памʼяті\n");
         exit(1);
     }
-    // нескінечний цикл, який виводить меню
+
+    // нескінечний цикл, який виводить меню користувача
     while(1 == 1) {
         menu(&orders);
         wait_m();
@@ -51,7 +53,7 @@ void menu(const List *plist) {
     return;
 }
 
-
+// чекаємо на дію користувача
 void wait_m() {
     printf("\nPress any button to proceed....\n");
     while(getchar() == '\n');
