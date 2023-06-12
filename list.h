@@ -59,7 +59,7 @@ void EmptyTheList(List *plist);
 
 // find item in list
 // *plist вказує на список, id - номер замовлення для пошуку
-Node * findOrder(int id,const List *plist);
+Node * findOrder(int id, const List* plist);
 
 // виводить в стандартний поток виводу інформацію про всі замовлення в списку
 // приймає посилання на початок списку
@@ -67,7 +67,6 @@ void printAll(const List *plist);
 
 // змінбє дані елементу списку
 void editOrder(const List *plist);
-
-int write_to_file(const List *plist);
+void printOrder(const Node *pnode);
 
 #endif

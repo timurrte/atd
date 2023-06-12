@@ -41,7 +41,8 @@ void menu(const List *plist) {
         puts("\nВкажіть номер замовлення, яке потрібно знайти:");
         int id;
         scanf("%d", &id);
-        findOrder(id, plist);
+        Node* search = findOrder(id, plist);
+        printOrder(search);
         break;
     
     case 4:
@@ -55,8 +56,9 @@ void menu(const List *plist) {
 
 // чекаємо на дію користувача
 void wait_m() {
+    char ch;
     printf("\nPress any button to proceed....\n");
-    while(getchar() == '\n');
-    scanf("%c");
+    while(getchar() != '\n');
+    scanf("%c", &ch);
     system("clear");
 }

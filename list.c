@@ -5,21 +5,21 @@
 
 
 // пошук замовлення по id в списку
-Node * findOrder(int id,const List *plist) {
-    Node *search = *plist;
-    Item *tmp = &search->item;
-    while(tmp != NULL) {
-        if (tmp->order_id == id) {
-            return search;
+Node* findOrder(int id, const List* plist) {
+    Node* current = plist;
+    while (current != NULL) {
+        if (current->item.order_id == id) {
+            return current;
         }
-        search = search->next;
+        current = current->next;
     }
     return NULL;
 }
 
+
 // відображення елементів списку
 // повертає 1 при успіху, інакше 0
-int showOrders(List *plist) {
+void showOrders(List *plist) {
     printAll(plist);
 }
 
@@ -104,7 +104,8 @@ void EmptyTheList(List *plist) {
 
 // виводить в стандартний поток виводу інформацію про замовлення
 // приймає посилання на елемент типу Item
-void printOrder(const Item *pitem) {
+void printOrder(const Node *pnode) {
+    Item* pitem = &pnode->item;
     printf("Всі замовлення\nНомер замовлення: %d\nІмʼя замовника: %sДата замовлення: %s\nДані про замовлення: %sСтатус замовлення: %s\nСума замовлення: %d\nКількість товару: %d\n",
     pitem->order_id, pitem->customer_name, pitem->order_date,pitem->order_info, pitem->status, pitem->order_cost, pitem->total_amount );
 }
@@ -141,52 +142,58 @@ void editOrder(const List *plist) {
 //todo
 }
 
-int write_to_file(const List *plist) {
-    // Відкриття файлу для запису
+void write_to_file(const List *plist) {
     char* filename = "orders.dat";
-    FILE* file = fopen(filename, "w");
+    FILE* file = fopen(filename, "wb");
     if (file == NULL) {
         printf("Не вдалося відкрити файл.\n");
         return;
     }
 
-    // Прохід по зв'язаному списку та запис даних у файл
-    Node* current = plist;
+    Node* current = *plist;
     while (current != NULL) {
-        fprintf(file, "%d\n", current->item);
+        fwrite(&(current->item), sizeof(Item), 1, file);
         current = current->next;
     }
 
-    // Закриття файлу
     fclose(file);
 }
 
-// Функція для читання даних зв'язаного списку з файлу
-void readLinkedListFromFile(const List* plist) {
+void readListFromFile(List* listRef) {
     char* filename = "orders.dat";
-    // Відкриття файлу для читання
-    FILE* file = fopen(filename, "r");
+    FILE* file = fopen(filename, "rb");
     if (file == NULL) {
         printf("Не вдалося відкрити файл.\n");
         return;
     }
 
-    // Очищення існуючого зв'язаного списку
-    Node* pnode = plist;
+    // Очищення існуючого списку, якщо він існує
+    Node* current = *listRef;
     Node* nextNode;
-    while (pnode != NULL) {
-        nextNode = pnode->next;
-        free(pnode);
-        pnode = nextNode;
+    while (current != NULL) {
+        nextNode = current->next;
+        free(current);
+        current = nextNode;
     }
-    plist = NULL;
+    *listRef = NULL;
 
-    // Читання даних з файлу та створення вузлів з відповідними значеннями
-    int value;
-    while (fscanf(file, "%d", &value) != EOF) {
-        AddItem(value, plist);
+    // Читання даних з файлу та створення вузлів списку з відповідними значеннями
+    Item item;
+    while (fread(&item, sizeof(Item), 1, file) == 1) {
+        Node* newNode = (Node*)malloc(sizeof(Node));
+        newNode->item = item;
+        newNode->next = NULL;
+
+        if (*listRef == NULL) {
+            *listRef = newNode;
+        } else {
+            Node* lastNode = *listRef;
+            while (lastNode->next != NULL) {
+                lastNode = lastNode->next;
+            }
+            lastNode->next = newNode;
+        }
     }
 
-    // Закриття файлу
     fclose(file);
 }
