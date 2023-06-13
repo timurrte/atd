@@ -68,9 +68,14 @@ void printAll(const List *plist);
 
 // змінює дані елементу списку
 void editStatus(List *plist);
+
+// виводить в стандартний поток виводу інформацію про замовлення pnode
 void printOrder(Node *pnode);
 
+// запис у файл "orders.dat" даних списку
 void writeToFile(const List *plist);
+
+// читання списку з файлу "orders.dat"
 void readListFromFile(List* listRef);
 
 

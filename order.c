@@ -53,17 +53,20 @@ void addOrder(const List *plist) {
     fflush(stdin);
     printf("Введіть імʼя замовника: ");
     fgets(tmp.customer_name, 50, stdin);
+
     printf("Введіть інформацію про замовлення:");
     fgets(tmp.order_info, 50, stdin);
+
     printf("Сума замовлення:");
     scanf("%d", &tmp.order_cost);
+
     printf("Кількість товару:");
     scanf("%d", &tmp.total_amount);
+
     tmp.order_id = ListItemCount(plist) + 1;
-    printf("\nрандом%dрандом\n", tmp.order_id);
     tmp.order_date = time(NULL);
     strncpy(tmp.status, "В очікуванні", 30);
-    printOrder(&tmp);
+    printf("\nНомер замовлення: %d\n", tmp.order_id);
     AddItem(tmp, plist);
 }
 

@@ -82,8 +82,6 @@ void EmptyTheList(List *plist) {
     }
 }
 
-
-
 // виводить в стандартний поток виводу інформацію про всі замовлення в списку
 void printAll(const List *plist) {
     Node *pnode = *plist;
@@ -93,7 +91,7 @@ void printAll(const List *plist) {
     }
 }
 
-
+// зберігає дані списку в файл "orders.dat"
 void writeToFile(const List *plist) {
     char* filename = "orders.dat";
     FILE* file = fopen(filename, "wb");
@@ -111,6 +109,7 @@ void writeToFile(const List *plist) {
     fclose(file);
 }
 
+// зчитує дані з файлу "orders.dat"
 void readListFromFile(List* listRef) {
     char* filename = "orders.dat";
     FILE* file = fopen(filename, "rb");
