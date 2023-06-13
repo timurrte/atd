@@ -49,7 +49,7 @@ void menu(const List *plist) {
         printAll(plist);
         break;
     case 5:
-        write_to_file(plist);
+        writeToFile(plist);
         break;
     case 6:
         readListFromFile(plist);

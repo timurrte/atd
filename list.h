@@ -70,7 +70,7 @@ void printAll(const List *plist);
 void editStatus(List *plist);
 void printOrder(Node *pnode);
 
-void write_to_file(const List *plist);
+void writeToFile(const List *plist);
 void readListFromFile(List* listRef);
 
 
